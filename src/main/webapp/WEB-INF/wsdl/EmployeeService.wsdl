@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions targetNamespace="http://com.pe.apps/ws" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://com.pe.apps/ws" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sch="http://com.pe.apps/schema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="Employee.xsd" namespace="http://com.pe.apps/schema"/>
+    </xsd:schema>
+  </types>
+  <message name="employeeRequestMessage">
+    <part name="employeeRequest" element="sch:employeeRequestElement"/>
+  </message>
+  <message name="employeeResponseMessage">
+    <part name="employeeResponse" element="sch:employeeResponseElement"/>
+  </message>
+  <message name="employeeExceptionMessage">
+    <part name="employeeException" element="sch:employeeExceptionElement"/>
+  </message>
+  <portType name="EmployeePT">
+    <operation name="employee">
+      <input message="tns:employeeRequestMessage"/>
+      <output message="tns:employeeResponseMessage"/>
+      <fault name="employeeFault" message="tns:employeeExceptionMessage"/>
+    </operation>
+  </portType>
+  <binding name="EmployeeSOAP11Binding" type="tns:EmployeePT">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="employee">
+      <soap:operation style="document" soapAction="http://com.pe.apps/ws/employee"/>
+      <input>
+        <soap:body use="literal" parts="employeeRequest"/>
+      </input>
+      <output>
+        <soap:body use="literal" parts="employeeResponse"/>
+      </output>
+      <fault name="employeeFault">
+        <soap:fault name="employeeFault" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="EmployeeServices">
+    <port name="EmployeePort" binding="tns:EmployeeSOAP11Binding">
+      <soap:address location="http://localhost:7101/WS_Employee/EmployeePTImpl?WSDL" />
+    </port>
+  </service>
+</definitions>

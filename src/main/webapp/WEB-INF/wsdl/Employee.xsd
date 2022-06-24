@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://com.pe.apps/schema" targetNamespace="http://com.pe.apps/schema" elementFormDefault="qualified">
+  <xsd:element name="employeeRequestElement" type="employeeRequest"/>
+  <xsd:element name="employeeResponseElement" type="employeeResponse"/>
+  <xsd:element name="employeeExceptionElement" type="employeeException"/>
+  <xsd:complexType name="employeeRequest">
+    <xsd:sequence>
+      <xsd:element name="action" type="xsd:string" />
+      <xsd:element name="empname" type="xsd:string" minOccurs="0" />
+      <xsd:element name="empalias" type="xsd:string" minOccurs="0" />
+      <xsd:element name="emppassword" type="xsd:string" minOccurs="0" />
+      <xsd:element name="empdni" type="xsd:string" minOccurs="0" />
+      <xsd:element name="empemail" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="employeeResponse">
+    <xsd:sequence>
+      <xsd:element name="empstatusnewemployee" type="xsd:string"/>
+      <xsd:element name="employees" type="Employee" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Employee">
+    <xsd:sequence>
+      <xsd:element name="empid" type="xsd:integer"/>
+      <xsd:element name="empname" type="xsd:string"/>
+      <xsd:element name="empalias" type="xsd:string"/>
+      <xsd:element name="emppassword" type="xsd:string"/>
+      <xsd:element name="empdni" type="xsd:string"/>
+      <xsd:element name="empemail" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="employeeException">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:string"/>
+      <xsd:element name="errorCode" type="xsd:string"/>
+      <xsd:element name="errorMessage" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
